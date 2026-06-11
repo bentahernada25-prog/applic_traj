@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SIG Céréales — Tunisie</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d1a0e;--panel:#131f14;--p2:#192b1a;--bd:#243826;
+  --tx:#dfeee0;--mu:#6a9a6d;--gr:#3a8c40;--g2:#55b85a;
+  --ye:#f0c030;--re:#e05040;--wh:#f0dba0;
+  --osm:#38a8e0;--loc:#f07030;
+  --t1:#e8f030;--t2:#60d060;--t3:#38a8e0;--t4:#f09030;--t5:#884422;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--tx);height:100vh;overflow:hidden;display:flex;flex-direction:column}
+#tb{background:var(--panel);border-bottom:1px solid var(--bd);padding:8px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;z-index:10}
+#tb h1{font-size:14px;font-weight:700;color:var(--wh)}
+#tb h1 span{font-weight:400;color:var(--mu);font-size:11px;margin-left:4px}
+#pw{flex:1;max-width:220px;height:3px;background:var(--bd);border-radius:2px;overflow:hidden}
+#pb{height:100%;background:linear-gradient(90deg,var(--gr),var(--g2));width:0%;transition:width .3s}
+#sm{font-size:11px;color:var(--mu);min-width:190px}
+#main{display:flex;flex:1;overflow:hidden}
+#panel{width:315px;min-width:270px;background:var(--panel);border-right:1px solid var(--bd);display:flex;flex-direction:column;overflow-y:auto}
+#panel::-webkit-scrollbar{width:3px}
+#panel::-webkit-scrollbar-thumb{background:var(--bd)}
+.sec{padding:11px 13px;border-bottom:1px solid var(--bd)}
+.st{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--mu);margin-bottom:7px}
+.fl{margin-bottom:7px}
+.fl label{display:block;font-size:11px;color:var(--mu);margin-bottom:3px}
+select,input[type=number]{width:100%;background:var(--p2);border:1px solid var(--bd);border-radius:5px;color:var(--tx);padding:7px 9px;font-size:12px;font-family:inherit;outline:none;cursor:pointer}
+select:focus,input[type=number]:focus{border-color:var(--gr)}
+select option{background:#192b1a}
+.sw{display:flex;justify-content:center;margin:3px 0}
+.sw button{background:var(--p2);border:1px solid var(--bd);color:var(--mu);border-radius:50%;width:26px;height:26px;cursor:pointer;font-size:13px;transition:.15s}
+.sw button:hover{border-color:var(--gr);color:var(--g2)}
+.bc{width:100%;background:var(--gr);color:#fff;border:none;border-radius:6px;padding:9px;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s}
+.bc:hover:not(:disabled){background:var(--g2)}
+.bc:disabled{background:var(--bd);color:var(--mu);cursor:not-allowed}
+.rc{background:var(--p2);border:1px solid var(--bd);border-radius:6px;padding:9px 11px;margin-bottom:6px}
+.rc.win{border-color:var(--ye);background:#1e2a10}
+.rl{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.7px;margin-bottom:2px}
+.rv{font-size:20px;font-weight:700;color:var(--wh)}
+.rv.big{font-size:23px;color:var(--ye)}
+.rs{font-size:11px;color:var(--mu);margin-top:2px}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:7px}
+.cc{background:var(--p2);border:1px solid var(--bd);border-radius:6px;padding:8px 10px;text-align:center}
+.cc.win{border-color:var(--ye);background:#1e2a10}
+.cl{font-size:10px;color:var(--mu);margin-bottom:3px;text-transform:uppercase;letter-spacing:.5px}
+.cv2{font-size:16px;font-weight:700}
+.cs{font-size:10px;color:var(--mu);margin-top:2px}
+.cb{background:var(--p2);border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-bottom:6px}
+.ch{background:var(--bd);padding:5px 11px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--mu)}
+.cbody{padding:7px 11px}
+.cr2{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px}
+.ck{font-size:11px;color:var(--mu)}
+.cv{font-size:12px;font-weight:600;color:var(--wh)}
+.ctot{border-top:1px solid var(--bd);padding-top:5px;margin-top:3px}
+.ctot .cv{color:var(--g2);font-size:14px}
+.qg{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.tr{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.tl{font-size:12px}
+.tg{position:relative;width:34px;height:19px;flex-shrink:0}
+.tg input{opacity:0;width:0;height:0}
+.ts{position:absolute;inset:0;background:var(--bd);border-radius:19px;cursor:pointer;transition:.2s}
+.ts::before{content:'';position:absolute;width:13px;height:13px;border-radius:50%;background:white;left:3px;top:3px;transition:.2s}
+.tg input:checked+.ts{background:var(--gr)}
+.tg input:checked+.ts::before{transform:translateX(15px)}
+.er{background:#2a1008;border:1px solid var(--re);border-radius:5px;padding:8px;font-size:12px;color:#f08060}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:5px}
+.dok{background:var(--g2)}.dsp{background:#f09030;animation:pu 1s infinite}.der{background:var(--re)}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.2}}
+.sr{display:flex;align-items:center;font-size:11px;color:var(--mu);padding:4px 0}
+.badge{display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700}
+#mw{position:relative;flex:1;background:#0a140b;overflow:hidden}
+#cv{position:absolute;top:0;left:0;cursor:grab}
+#cv:active{cursor:grabbing}
+.leg{position:absolute;bottom:12px;right:10px;background:rgba(13,26,14,.93);border:1px solid var(--bd);border-radius:6px;padding:8px 11px;z-index:10;font-size:11px;color:var(--mu)}
+.lr{display:flex;align-items:center;gap:6px;margin-bottom:4px;white-space:nowrap}
+.ll{width:18px;height:2.5px;border-radius:1px;flex-shrink:0}
+.ld{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+</style>
+</head>
+<body>
+<div id="tb">
+  <div style="display:flex;align-items:center;gap:7px">
+    <div style="width:28px;height:28px;background:var(--gr);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:14px">🌾</div>
+    <h1>SIG Céréales <span>Tunisie</span></h1>
+  </div>
+  <div id="pw"><div id="pb"></div></div>
+  <div id="sm">Initialisation...</div>
+</div>
+<div id="main">
+  <div id="panel">
+    <div class="sec">
+      <div class="st">État système</div>
+      <div class="sr"><span class="dot dsp" id="dotR"></span><span id="lblR">Décompression...</span></div>
+      <div class="sr"><span class="dot dok"></span><span id="lblOSRM">OSRM (OSM) : en attente</span></div>
+      <div class="sr"><span class="dot dok"></span><span>174 centres chargés</span></div>
+    </div>
+    <div class="sec">
+      <div class="st">Légende types de route</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:11px">
+        <div class="sr"><span style="width:12px;height:3px;background:var(--t1);border-radius:1px;display:inline-block;margin-right:5px;flex-shrink:0"></span>Type 1 — Autoroute</div>
+        <div class="sr"><span style="width:12px;height:3px;background:var(--t2);border-radius:1px;display:inline-block;margin-right:5px;flex-shrink:0"></span>Type 2 — Nationale</div>
+        <div class="sr"><span style="width:12px;height:3px;background:var(--t3);border-radius:1px;display:inline-block;margin-right:5px;flex-shrink:0"></span>Type 3 — Régionale</div>
+        <div class="sr"><span style="width:12px;height:3px;background:var(--t4);border-radius:1px;display:inline-block;margin-right:5px;flex-shrink:0"></span>Type 4 — Locale ×2.5</div>
+        <div class="sr"><span style="width:12px;height:3px;background:var(--t5);border-radius:1px;display:inline-block;margin-right:5px;flex-shrink:0"></span>Type 5 — Piste ×5.0</div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="st">Itinéraire</div>
+      <div class="fl"><label>Départ</label><select id="selD"><option value="">— Sélectionner —</option></select></div>
+      <div class="sw"><button onclick="doSwap()" title="Inverser">⇅</button></div>
+      <div class="fl"><label>Arrivée</label><select id="selA"><option value="">— Sélectionner —</option></select></div>
+    </div>
+    <div class="sec">
+      <div class="st">Cotisation</div>
+      <div class="qg">
+        <div class="fl"><label>Quantité (T)</label><input type="number" id="qty" min="0" step="0.1" value="50"></div>
+        <div class="fl"><label>P. unitaire (dt/T)</label><input type="number" id="pu" min="0" step="0.001" placeholder="auto"></div>
+      </div>
+      <div class="tr">
+        <span class="tl">Vente Minoterie (+30km)</span>
+        <label class="tg"><input type="checkbox" id="mino" onchange="togMin()"><span class="ts"></span></label>
+      </div>
+      <div class="fl" id="fraisW" style="display:none">
+        <label>Frais d'approche (dt/T)</label>
+        <input type="number" id="frais" min="0" step="0.001" value="1.190">
+      </div>
+      <button class="bc" id="btnC" onclick="doCalc()" disabled>Calculer les 2 itinéraires</button>
+    </div>
+    <div class="sec" id="resS" style="display:none">
+      <div class="st">Comparaison</div>
+      <div class="cg" id="compGrid"></div>
+      <div id="bestBanner"></div>
+      <div id="cotisBlock"></div>
+    </div>
+    <div class="sec" id="errS" style="display:none"><div class="er" id="errM"></div></div>
+  </div>
+  <div id="mw">
+    <canvas id="cv"></canvas>
+    <div class="leg">
+      <div class="lr"><div class="ll" style="background:var(--t1);height:3px"></div>Autoroute</div>
+      <div class="lr"><div class="ll" style="background:var(--t2)"></div>Nationale</div>
+      <div class="lr"><div class="ll" style="background:var(--t3)"></div>Régionale</div>
+      <div class="lr"><div class="ll" style="background:var(--t4)"></div>Locale (×2.5 camion)</div>
+      <div class="lr"><div class="ll" style="background:var(--t5)"></div>Piste (×5.0 camion)</div>
+      <div style="border-top:1px solid var(--bd);margin:5px 0"></div>
+      <div class="lr"><div class="ll" style="background:var(--loc);height:3.5px"></div>Trajet base locale</div>
+      <div class="lr"><div class="ll" style="background:var(--osm);height:3.5px"></div>Trajet OSM/OSRM</div>
+      <div class="lr"><div class="ll" style="background:var(--ye);height:4px"></div>⭐ Plus court retenu</div>
+      <div class="lr"><div class="ld" style="background:var(--g2)"></div>Centre de collecte</div>
+    </div>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
